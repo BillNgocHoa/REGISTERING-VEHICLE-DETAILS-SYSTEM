@@ -16,7 +16,7 @@ public class Test_DB_oldDB {
     public static void main(String[] args) {
         // TODO code application logic here
         LoginPanel frm = new LoginPanel(); //frame Main
-        frm.setTitle("Nguyễn Ngọc Hòa - ITITUN21010 - Lab 7");
+        frm.setTitle("Registered Vehicle Details");
         
         frm.setVisible(true);
     }

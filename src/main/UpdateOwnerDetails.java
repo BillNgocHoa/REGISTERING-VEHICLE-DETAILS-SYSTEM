@@ -4,11 +4,18 @@
  */
 package main;
 
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nnbil
  */
 public class UpdateOwnerDetails extends javax.swing.JFrame {
+
+    private Connection conn;
 
     /**
      * Creates new form updateOwnerDetails
@@ -35,7 +42,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
         ResultTextArea = new javax.swing.JTextArea();
         RunButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        AdvancedQuery = new javax.swing.JTextField();
+        ViewResult = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +83,12 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
 
         jLabel3.setText("View result:");
 
+        ViewResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewResultActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +109,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AdvancedQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ViewResult, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(RunButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -128,7 +141,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RunButton)
                     .addComponent(jLabel3)
-                    .addComponent(AdvancedQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ViewResult, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -138,7 +151,58 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        // TODO add your handling code here:
+        //"UPDATE" button:  (Following code is for every type of query)
+        
+        // Check if the user hasn’t input a query, display an error message and return control to the main form
+        if (query.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please input query string!", "Message", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        /* We just UPDATE, donot show out the result
+        ResultTextArea.selectAll();
+        ResultTextArea.replaceSelection("");
+        */
+        try {
+            //connect Database
+            ConnectionDB connDB = new ConnectionDB();
+            conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
+
+            Statement stmt = conn.createStatement();
+            String SQL = query.getText();
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            // Iterate through the data in the result set and display it.
+            // Process query results
+            StringBuilder results = new StringBuilder();
+
+            //Fetch the column information for the table
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                //Obtain the results of the query
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            
+            /*
+            //Display the results onto Text Area (ResultTextArea)
+            ResultTextArea.setText(results.toString());
+            */
+        } // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            ResultTextArea.setText(e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UpdateOwnerDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
@@ -146,7 +210,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
         UpdatePanel obj = new UpdatePanel();
         //Set position&bounds of next window, same as the existing one
         obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        
+
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
@@ -156,8 +220,61 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_queryActionPerformed
 
     private void RunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunButtonActionPerformed
-        // TODO add your handling code here:
+        //View Result based on query sentence:
+        
+        // Check if the user hasn’t input a query, display an error message and return control to the main form
+        if (ViewResult.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please input query string!", "Message", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        ResultTextArea.selectAll();
+        ResultTextArea.replaceSelection("");
+        
+        try {
+            //connect Database
+            ConnectionDB connDB = new ConnectionDB();
+            conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
+
+            Statement stmt = conn.createStatement();
+            String SQL = ViewResult.getText();
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            // Iterate through the data in the result set and display it.
+            // Process query results
+            StringBuilder results = new StringBuilder();
+
+            //Fetch the column information for the table
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                //Obtain the results of the query
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            
+            //Display the results onto Text Area (ResultTextArea)
+            ResultTextArea.setText(results.toString());
+            
+        } // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            ResultTextArea.setText(e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UpdateOwnerDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
     }//GEN-LAST:event_RunButtonActionPerformed
+
+    private void ViewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewResultActionPerformed
+        
+    }//GEN-LAST:event_ViewResultActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,11 +313,11 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField AdvancedQuery;
     private javax.swing.JButton BackButton;
     private javax.swing.JTextArea ResultTextArea;
     private javax.swing.JButton RunButton;
     private javax.swing.JButton UpdateButton;
+    private javax.swing.JTextField ViewResult;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

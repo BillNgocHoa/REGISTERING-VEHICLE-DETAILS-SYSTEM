@@ -132,6 +132,7 @@ public class frameMain extends javax.swing.JFrame {
         catch (SQLException e) {
             txtResult.setText(e.getMessage());
         }
+        
     }//GEN-LAST:event_btnRunActionPerformed
 
     /**
