@@ -117,6 +117,9 @@ public class DeleteVehicle extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // Come back to DeletePanel.java ("Back" button):
         DeletePanel obj = new DeletePanel();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed

@@ -35,9 +35,9 @@ public class LoginPanel extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
         LoginButton = new javax.swing.JButton();
         ClearButton = new javax.swing.JButton();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,12 +51,6 @@ public class LoginPanel extends javax.swing.JFrame {
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameActionPerformed(evt);
-            }
-        });
-
-        password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
             }
         });
 
@@ -74,6 +68,12 @@ public class LoginPanel extends javax.swing.JFrame {
             }
         });
 
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,11 +84,11 @@ public class LoginPanel extends javax.swing.JFrame {
                 .addGap(100, 100, 100))
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(password))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -128,16 +128,16 @@ public class LoginPanel extends javax.swing.JFrame {
         try {
             //connect Database
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle_registration_database", "root", "NeverGiveUp@123");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle_registration_db", "root", "NeverGiveUp@123");
 
             //Get the username and password entered by the User (Admin)
             String name = username.getText();
-            String pass = password.getText();
+            //String pass = password.getText();
             // We don't use Password field, so don't use ".getPassword()"
-            //String pass = new String(password.getPassword()); //Note: getPassword() returns a char[]
+            String pass = new String(password.getPassword()); //Note: getPassword() returns a char[]
 
             //Prepare the SQL query to check if the credentials are correct
-            String sql = "SELECT * FROM admin_login WHERE username=? AND password=?";
+            String sql = "SELECT * FROM admin WHERE username=? AND password=?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
@@ -146,7 +146,14 @@ public class LoginPanel extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // The user credentials are correct, Open Functions.java form
-                new Functions().setVisible(true);
+                Functions obj = new Functions();
+                obj.setVisible(true);
+                //Set position&bounds of next window, same as the existing one
+                obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+
+                // Close the the existing window, after opening new one (Functions.java)
+                this.setVisible(false);
+
             } else {
                 // The user credentials are incorrect, show an error message here
                 JOptionPane.showMessageDialog(this, "Wrong username and password");
@@ -162,15 +169,15 @@ public class LoginPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
-
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
         // Clear the text field:
         username.setText("");
         password.setText("");
     }//GEN-LAST:event_ClearButtonActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,7 +220,7 @@ public class LoginPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

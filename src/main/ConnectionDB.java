@@ -15,6 +15,6 @@ import java.sql.SQLException;
 public class ConnectionDB {
     public static Connection getCon() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle_registration_database", "root", "NeverGiveUp@123");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle_registration_db", "root", "NeverGiveUp@123");
     }
 }

@@ -113,6 +113,9 @@ public class AddPanel extends javax.swing.JFrame {
     private void RegButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegButtonActionPerformed
         // Go to AddRegistration.java:
         AddRegistration obj = new AddRegistration();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_RegButtonActionPerformed
@@ -120,6 +123,9 @@ public class AddPanel extends javax.swing.JFrame {
     private void OwnerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OwnerButtonActionPerformed
         // Go to AddOwner.java:
         AddOwner obj = new AddOwner();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_OwnerButtonActionPerformed
@@ -127,6 +133,9 @@ public class AddPanel extends javax.swing.JFrame {
     private void VehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VehicleButtonActionPerformed
         // Go to AddVehicle.java:
         AddVehicle obj = new AddVehicle();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_VehicleButtonActionPerformed
@@ -134,6 +143,9 @@ public class AddPanel extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // Come back to Functions.java ("Back" button):
         Functions obj = new Functions();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed

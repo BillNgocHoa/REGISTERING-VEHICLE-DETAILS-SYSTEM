@@ -97,6 +97,9 @@ public class DeletePanel extends javax.swing.JFrame {
     private void OwnerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OwnerButtonActionPerformed
         // Go to DeleteOwner.java:
         DeleteOwner obj = new DeleteOwner();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_OwnerButtonActionPerformed
@@ -104,6 +107,9 @@ public class DeletePanel extends javax.swing.JFrame {
     private void VehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VehicleButtonActionPerformed
         // Go to DeleteVehicle.java:
         DeleteVehicle obj = new DeleteVehicle();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_VehicleButtonActionPerformed
@@ -111,6 +117,9 @@ public class DeletePanel extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // Come back to Functions.java ("Back" button):
         Functions obj = new Functions();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed

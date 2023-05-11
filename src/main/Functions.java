@@ -119,6 +119,8 @@ public class Functions extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // Come back to LoginPanel.java ("Back" button):
         LoginPanel obj = new LoginPanel();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
@@ -126,6 +128,9 @@ public class Functions extends javax.swing.JFrame {
     private void ViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewButtonActionPerformed
         // Go to ViewPanel.java:
         ViewPanel obj = new ViewPanel();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_ViewButtonActionPerformed
@@ -133,6 +138,9 @@ public class Functions extends javax.swing.JFrame {
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // Go to AddPanel.java:
         AddPanel obj = new AddPanel();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_AddButtonActionPerformed
@@ -140,6 +148,9 @@ public class Functions extends javax.swing.JFrame {
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         // Go to DeletePanel.java:
         DeletePanel obj = new DeletePanel();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_DeleteButtonActionPerformed
@@ -147,6 +158,9 @@ public class Functions extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // Go to UpdatePanel.java:
         UpdatePanel obj = new UpdatePanel();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_UpdateButtonActionPerformed

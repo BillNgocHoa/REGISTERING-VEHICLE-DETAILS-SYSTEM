@@ -58,6 +58,11 @@ public class AddVehicle extends javax.swing.JFrame {
         jLabel6.setText("chassicNo ");
 
         NextButton.setText("Next - add Reg info");
+        NextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NextButtonActionPerformed(evt);
+            }
+        });
 
         ResetButton.setText("Reset");
         ResetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +168,9 @@ public class AddVehicle extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // Go to AddPanel.java:
         AddPanel obj =new AddPanel();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
@@ -179,6 +187,17 @@ public class AddVehicle extends javax.swing.JFrame {
     private void vehicleIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehicleIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_vehicleIDActionPerformed
+
+    private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
+        // Go to AddRegistration.java:
+        AddRegistration obj =new AddRegistration();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
+        obj.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_NextButtonActionPerformed
 
     /**
      * @param args the command line arguments

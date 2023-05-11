@@ -161,6 +161,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Next - add Reg info"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NextButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ResetButton">
       <Properties>

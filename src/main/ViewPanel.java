@@ -110,6 +110,9 @@ public class ViewPanel extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // Come back to Functions.java ("Back" button):
         Functions obj = new Functions();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
@@ -117,6 +120,9 @@ public class ViewPanel extends javax.swing.JFrame {
     private void OwnerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OwnerButtonActionPerformed
         // Go to ViewOwnerDetails.java:
         ViewOwnerDetails obj = new ViewOwnerDetails();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_OwnerButtonActionPerformed
@@ -124,6 +130,9 @@ public class ViewPanel extends javax.swing.JFrame {
     private void VehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VehicleButtonActionPerformed
         // Go to ViewVehicleDetails.java:
         ViewVehicleDetails obj = new ViewVehicleDetails();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_VehicleButtonActionPerformed
@@ -131,6 +140,9 @@ public class ViewPanel extends javax.swing.JFrame {
     private void RegButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegButtonActionPerformed
         // Go to ViewRegistrationDetails.java:
         ViewRegistrationDetails obj = new ViewRegistrationDetails();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_RegButtonActionPerformed
