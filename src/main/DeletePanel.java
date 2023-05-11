@@ -30,6 +30,8 @@ public class DeletePanel extends javax.swing.JFrame {
         OwnerButton = new javax.swing.JButton();
         VehicleButton = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        RegButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,39 +58,57 @@ public class DeletePanel extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Remeber: You must delete Registration details before delete Owner & Vehicle");
+
+        RegButton.setText("Delete Registration");
+        RegButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(VehicleButton)
-                            .addComponent(OwnerButton)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(BackButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                        .addGap(114, 114, 114)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RegButton)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(OwnerButton)
+                                .addComponent(VehicleButton)))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(BackButton)))
-                .addGap(18, 18, 18)
+                        .addComponent(BackButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(28, 28, 28)
+                .addComponent(RegButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(OwnerButton)
-                .addGap(44, 44, 44)
+                .addGap(36, 36, 36)
                 .addComponent(VehicleButton)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGap(61, 61, 61))
         );
 
         pack();
@@ -123,6 +143,16 @@ public class DeletePanel extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
+
+    private void RegButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegButtonActionPerformed
+        // Go to DeleteRegistration.java:
+        DeleteRegistration obj = new DeleteRegistration();
+        //Set position&bounds of next window, same as the existing one
+        obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_RegButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,7 +192,9 @@ public class DeletePanel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
     private javax.swing.JButton OwnerButton;
+    private javax.swing.JButton RegButton;
     private javax.swing.JButton VehicleButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

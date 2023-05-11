@@ -4,11 +4,16 @@
  */
 package main;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nnbil
  */
 public class AddRegistration extends javax.swing.JFrame {
+
+        private Connection conn;
 
     /**
      * Creates new form AddRegistration
@@ -40,6 +45,8 @@ public class AddRegistration extends javax.swing.JFrame {
         AddButton = new javax.swing.JButton();
         ResetButton = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        regID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +89,8 @@ public class AddRegistration extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("regID");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,16 +103,18 @@ public class AddRegistration extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addGap(74, 74, 74)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(regDate)
-                                    .addComponent(expDate, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(expDate, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(regID)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -121,7 +132,7 @@ public class AddRegistration extends javax.swing.JFrame {
                                         .addGap(45, 45, 45)
                                         .addComponent(ResetButton))
                                     .addComponent(vehicleID, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,6 +144,10 @@ public class AddRegistration extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(BackButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(regID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -157,14 +172,40 @@ public class AddRegistration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddButton)
                     .addComponent(ResetButton))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        // TODO add your handling code here:
+        // "ADD" button:
+        try {
+            ConnectionDB connDB = new ConnectionDB();
+            conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
+            
+            String sql = "insert into registration values (?,?,?,?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, regID.getText());  // "regID" is the code name of textField1
+            pst.setString(2, regDate.getText());  // "regDate" is the code name of textField2
+            pst.setString(3, expDate.getText());  // "expDate" is the code name of textField3
+            pst.setString(4, regPlace.getText());  // "regPlace" is the code name of textField4
+            pst.setString(5, ownerID.getText());  // "ownerID" is the code name of textField5
+            pst.setString(6, vehicleID.getText());  // "vehicleID" is the code name of textField6
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data is inserted successfully");
+            conn.close();
+
+            regID.setText(""); //is used to clear the text fields after the data is inserted into the database.
+            regDate.setText("");    //After inserting the data into the database, these text fields are cleared by setting their text values to an empty string.
+            expDate.setText(""); //If we do not clear the text fields, the previous values will remain in the fields, and the user would have to manually delete them before entering new data.
+            regPlace.setText("");
+            ownerID.setText("");
+            vehicleID.setText("");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
@@ -236,8 +277,10 @@ public class AddRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField ownerID;
     private javax.swing.JTextField regDate;
+    private javax.swing.JTextField regID;
     private javax.swing.JTextField regPlace;
     private javax.swing.JTextField vehicleID;
     // End of variables declaration//GEN-END:variables

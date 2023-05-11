@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class AddOwner extends javax.swing.JFrame {
 
-    //private final Connection conn;
+    private Connection conn;
 
     /**
      * Creates new form AddCustomer
@@ -22,12 +22,6 @@ public class AddOwner extends javax.swing.JFrame {
      */
     public AddOwner() {
         initComponents();
-
-    }
-
-    public AddOwner(Connection conn) {
-        initComponents();
-    //   this.conn = conn;
     }
 
     /**
@@ -162,33 +156,35 @@ public class AddOwner extends javax.swing.JFrame {
         AddPanel obj = new AddPanel();
         //Set position&bounds of next window, same as the existing one
         obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        
+
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // "ADD" button:
-         /*
+
         try {
-           
-            String sql = "insert into doctor_record values (?,?,?)";
-            PreparedStatement ptstmt = conn.prepareStatement(sql);
-            ptstmt.setString(1, Oname.getText());  // "di" is the code name of textField1
-            ptstmt.setString(2, Oaddress.getText());  // "dn" is the code name of textField2
-            ptstmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "data inserted successfully");
+            ConnectionDB connDB = new ConnectionDB();
+            conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
+            
+            String sql = "insert into owner values (?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, ownerID.getText());  // "ownerID" is the code name of textField1
+            pst.setString(2, name.getText());  // "name" is the code name of textField2
+            pst.setString(3, address.getText());  // "address" is the code name of textField3
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data is inserted successfully");
             conn.close();
 
-            Oname.setText("");
-            Oaddress.setText("");//is used to clear the text fields after the data is inserted into the database.
-            //After inserting the data into the database, these text fields are cleared by setting their text values to an empty string.
-            //If we do not clear the text fields, the previous values will remain in the fields, and the user would have to manually delete them before entering new data.
+            ownerID.setText(""); //is used to clear the text fields after the data is inserted into the database.
+            name.setText("");    //After inserting the data into the database, these text fields are cleared by setting their text values to an empty string.
+            address.setText(""); //If we do not clear the text fields, the previous values will remain in the fields, and the user would have to manually delete them before entering new data.
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-                */
+
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void ownerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ownerIDActionPerformed

@@ -4,11 +4,16 @@
  */
 package main;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nnbil
  */
 public class AddVehicle extends javax.swing.JFrame {
+
+    private Connection conn;
 
     /**
      * Creates new form AddVehicle
@@ -167,10 +172,10 @@ public class AddVehicle extends javax.swing.JFrame {
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // Go to AddPanel.java:
-        AddPanel obj =new AddPanel();
+        AddPanel obj = new AddPanel();
         //Set position&bounds of next window, same as the existing one
         obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        
+
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
@@ -189,14 +194,43 @@ public class AddVehicle extends javax.swing.JFrame {
     }//GEN-LAST:event_vehicleIDActionPerformed
 
     private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
+        // "ADD VEHICLE" button:
+        try {
+            ConnectionDB connDB = new ConnectionDB();
+            conn = connDB.getCon();
+
+            String sql = "insert into vehicle values (?,?,?,?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, vehicleID.getText());  // "vehicleID" is the code name of textField1
+            pst.setString(2, brandCode.getText());  // "brandCode" is the code name of textField2
+            pst.setString(3, modelCode.getText());  // "modelCode" is the code name of textField3
+            pst.setString(4, color.getText());  // "color" is the code name of textField4
+            pst.setString(5, engineNo.getText());  // "engineNo" is the code name of textField5
+            pst.setString(6, chassicNo.getText());  // "chassicNo" is the code name of textField6
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Vehicle data is inserted successfully");
+            conn.close();
+
+            vehicleID.setText(""); //is used to clear the text fields after the data is inserted into the database.
+            brandCode.setText("");    //After inserting the data into the database, these text fields are cleared by setting their text values to an empty string.
+            modelCode.setText("");
+            color.setText("");
+            engineNo.setText("");
+            chassicNo.setText("");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+//After adding to Table "vehicle":
         // Go to AddRegistration.java:
-        AddRegistration obj =new AddRegistration();
+        AddRegistration obj = new AddRegistration();
         //Set position&bounds of next window, same as the existing one
         obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        
+
         obj.setVisible(true);
         dispose();
-        
+
     }//GEN-LAST:event_NextButtonActionPerformed
 
     /**

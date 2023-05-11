@@ -4,11 +4,16 @@
  */
 package main;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nnbil
  */
 public class DeleteVehicle extends javax.swing.JFrame {
+
+    private Connection conn;
 
     /**
      * Creates new form DeleteVehicle
@@ -46,6 +51,11 @@ public class DeleteVehicle extends javax.swing.JFrame {
         });
 
         DeleteButton.setText("Delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
 
         ResetButton.setText("Reset");
         ResetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -119,14 +129,33 @@ public class DeleteVehicle extends javax.swing.JFrame {
         DeletePanel obj = new DeletePanel();
         //Set position&bounds of next window, same as the existing one
         obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        
+
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void vehicleIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehicleIDActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_vehicleIDActionPerformed
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        // "Delete" button:
+        try {
+            ConnectionDB connDB = new ConnectionDB();
+            conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
+
+            String sql = "DELETE FROM vehicle WHERE vehicleID=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, vehicleID.getText());  // "vehicleID" is the code name of textField1
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Vehicle data is deleted successfully");
+            conn.close();
+
+            vehicleID.setText(""); //is used to clear the text fields after the data is inserted into the database.
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
 
     /**
      * @param args the command line arguments

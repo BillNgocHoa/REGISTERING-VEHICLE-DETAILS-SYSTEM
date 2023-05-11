@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
  */
 public class LoginPanel extends javax.swing.JFrame {
 
+    private Connection conn;
+
     /**
      * Creates new form LoginPanel
      */
@@ -127,23 +129,22 @@ public class LoginPanel extends javax.swing.JFrame {
         //"LOGIN" Button
         try {
             //connect Database
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle_registration_db", "root", "NeverGiveUp@123");
+            ConnectionDB connDB = new ConnectionDB();
+            conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
 
             //Get the username and password entered by the User (Admin)
             String name = username.getText();
-            //String pass = password.getText();
-            // We don't use Password field, so don't use ".getPassword()"
+            // We use Password field, so use ".getPassword()"
             String pass = new String(password.getPassword()); //Note: getPassword() returns a char[]
 
             //Prepare the SQL query to check if the credentials are correct
             String sql = "SELECT * FROM admin WHERE username=? AND password=?";
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setString(2, pass);
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, name);
+            pst.setString(2, pass);
 
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 // The user credentials are correct, Open Functions.java form
                 Functions obj = new Functions();

@@ -11,14 +11,14 @@ import javax.swing.JOptionPane;
  *
  * @author nnbil
  */
-public class DeleteOwner extends javax.swing.JFrame {
+public class DeleteRegistration extends javax.swing.JFrame {
 
     private Connection conn;
-
+    
     /**
-     * Creates new form DeleteOwner
+     * Creates new form DeleteRegistration
      */
-    public DeleteOwner() {
+    public DeleteRegistration() {
         initComponents();
     }
 
@@ -32,14 +32,16 @@ public class DeleteOwner extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        DeleteButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        ownerID = new javax.swing.JTextField();
+        regID = new javax.swing.JTextField();
+        DeleteButton = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Delete Owner Information");
+        jLabel1.setText("Delete Registration");
+
+        jLabel2.setText("regID");
 
         DeleteButton.setText("Delete");
         DeleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -47,8 +49,6 @@ public class DeleteOwner extends javax.swing.JFrame {
                 DeleteButtonActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("ownerID");
 
         BackButton.setText("Back");
         BackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -64,34 +64,37 @@ public class DeleteOwner extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DeleteButton)
-                            .addComponent(jLabel1)))
+                        .addContainerGap()
+                        .addComponent(BackButton)
+                        .addGap(78, 78, 78)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(47, 47, 47)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(ownerID, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(regID, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BackButton)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addGap(150, 150, 150)
+                        .addComponent(DeleteButton)))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BackButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BackButton)))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(ownerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                    .addComponent(regID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73)
                 .addComponent(DeleteButton)
-                .addGap(47, 47, 47))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,18 +116,17 @@ public class DeleteOwner extends javax.swing.JFrame {
             ConnectionDB connDB = new ConnectionDB();
             conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
 
-            String sql = "DELETE FROM owner WHERE ownerID=?";
+            String sql = "DELETE FROM registration WHERE regID=?";
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, ownerID.getText());  // "ownerID" is the code name of textField1
+            pst.setString(1, regID.getText());  // "vehicleID" is the code name of textField1
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Owner data is deleted successfully");
+            JOptionPane.showMessageDialog(null, "Registration data is deleted successfully");
             conn.close();
-            
-            ownerID.setText("");    //is used to clear the text fields after the data is inserted into the database.
+
+            regID.setText(""); //is used to clear the text fields after the data is inserted into the database.
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
     /**
@@ -144,20 +146,20 @@ public class DeleteOwner extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteOwner().setVisible(true);
+                new DeleteRegistration().setVisible(true);
             }
         });
     }
@@ -167,6 +169,6 @@ public class DeleteOwner extends javax.swing.JFrame {
     private javax.swing.JButton DeleteButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField ownerID;
+    private javax.swing.JTextField regID;
     // End of variables declaration//GEN-END:variables
 }
