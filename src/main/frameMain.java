@@ -87,7 +87,8 @@ public class frameMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
-        // TODO add your handling code here:
+        // "RUN" button:
+        
         // Check if the user hasn’t input a query, display an error message and return control to the main form
         if (txtQuery.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Please input query string!", "Message", JOptionPane.WARNING_MESSAGE);
@@ -98,7 +99,7 @@ public class frameMain extends javax.swing.JFrame {
         txtResult.replaceSelection("");
 
         // Database connection string
-        String url = "jdbc:mysql://localhost:3306/vehicle_registration_database";
+        String url = "jdbc:mysql://localhost:3306/vehicle_registration_db";
         String user = "root";
         String password = "NeverGiveUp@123";
         
@@ -106,6 +107,7 @@ public class frameMain extends javax.swing.JFrame {
             String SQL = txtQuery.getText();
             ResultSet rs = stmt.executeQuery(SQL);
 
+// Following code is for DISPLAYing result in TextArea:            
             // Iterate through the data in the result set and display it.
             // Process query results
             StringBuilder results = new StringBuilder();
