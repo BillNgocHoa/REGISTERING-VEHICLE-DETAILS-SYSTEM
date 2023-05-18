@@ -163,7 +163,7 @@ public class ViewOwnerDetails extends javax.swing.JFrame {
             conn = connDB.getCon(); //get Connection: all the stuff - com.mysql.cj.jdbc.Driver, jdbc:mysql://localhost:3306/...
 
             String query = "SELECT * FROM owner WHERE ownerID = ?";
-            PreparedStatement pst = conn.prepareStatement(query);
+            PreparedStatement pst = conn.prepareStatement(query);   //short for: connDB.getCon().prepareStatement()
             pst.setString(1, ownerID.getText());
             ResultSet rs = pst.executeQuery();
 
