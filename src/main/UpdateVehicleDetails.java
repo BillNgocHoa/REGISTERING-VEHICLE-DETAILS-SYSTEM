@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class UpdateVehicleDetails extends javax.swing.JFrame {
 
     private Connection conn;
-    
+
     /**
      * Creates new form updateVehicleDetails
      */
@@ -99,18 +99,15 @@ public class UpdateVehicleDetails extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(query, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(query, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ViewResult)
+                        .addComponent(ViewResult, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RunButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7))))
+                        .addComponent(RunButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(7, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +152,7 @@ public class UpdateVehicleDetails extends javax.swing.JFrame {
         UpdatePanel obj = new UpdatePanel();
         //Set position&bounds of next window, same as the existing one
         obj.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        
+
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
@@ -166,7 +163,7 @@ public class UpdateVehicleDetails extends javax.swing.JFrame {
 
     private void RunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunButtonActionPerformed
         //View Result based on query sentence:
-        
+
         // Check if the user hasn’t input a query, display an error message and return control to the main form
         if (ViewResult.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Please input query string!", "Message", JOptionPane.WARNING_MESSAGE);
@@ -175,7 +172,7 @@ public class UpdateVehicleDetails extends javax.swing.JFrame {
 
         ResultTextArea.selectAll();
         ResultTextArea.replaceSelection("");
-        
+
         try {
             //connect Database
             ConnectionDB connDB = new ConnectionDB();
@@ -204,18 +201,17 @@ public class UpdateVehicleDetails extends javax.swing.JFrame {
                 }
                 results.append("\n");
             }
-            
+
             //Display the results onto Text Area (ResultTextArea)
             ResultTextArea.setText(results.toString());
-            
+
         } // Handle any errors that may have occurred.
         catch (SQLException e) {
             ResultTextArea.setText(e.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateVehicleDetails.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdateOwnerDetails.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }//GEN-LAST:event_RunButtonActionPerformed
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
@@ -228,7 +224,7 @@ public class UpdateVehicleDetails extends javax.swing.JFrame {
         /* We just UPDATE, donot show out the result
         ResultTextArea.selectAll();
         ResultTextArea.replaceSelection("");
-        */
+         */
         try {
             //connect Database
             ConnectionDB connDB = new ConnectionDB();
@@ -236,40 +232,17 @@ public class UpdateVehicleDetails extends javax.swing.JFrame {
 
             Statement stmt = conn.createStatement();
             String SQL = query.getText();
-            ResultSet rs = stmt.executeQuery(SQL);
+            int rowsAffected = stmt.executeUpdate(SQL); // Use executeUpdate() instead of executeQuery()
 
-            // Iterate through the data in the result set and display it.
-            // Process query results
-            StringBuilder results = new StringBuilder();
-
-            //Fetch the column information for the table
-            ResultSetMetaData metaData = rs.getMetaData();
-            int numberOfColumns = metaData.getColumnCount();
-            for (int i = 1; i <= numberOfColumns; i++) {
-                results.append(metaData.getColumnName(i)).append("\t");
-            }
-            results.append("\n");
-            //  Metadata
-            while (rs.next()) {
-                //Obtain the results of the query
-                for (int i = 1; i <= numberOfColumns; i++) {
-                    results.append(rs.getObject(i)).append("\t");
-                }
-                results.append("\n");
-            }
-            
-            /*
-            //Display the results onto Text Area (ResultTextArea)
-            ResultTextArea.setText(results.toString());
-            */
-        } // Handle any errors that may have occurred.
-        catch (SQLException e) {
+            // Display the number of rows affected
+            //ResultTextArea.setText("Rows affected: " + rowsAffected);
+        } catch (SQLException e) {
             ResultTextArea.setText(e.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateVehicleDetails.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdateOwnerDetails.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     /**

@@ -16,7 +16,7 @@ public class Test_DB_oldDB {
     public static void main(String[] args) {
         // TODO code application logic here
         LoginPanel frm = new LoginPanel(); //frame Main
-        frm.setTitle("Registered Vehicle Details");
+        frm.setTitle("Registered Vehicle Details - Group 10");
         
         frm.setVisible(true);
     }

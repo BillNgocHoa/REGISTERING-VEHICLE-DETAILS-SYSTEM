@@ -152,7 +152,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         //"UPDATE" button:  (Following code is for every type of query)
-        
+
         // Check if the user hasn’t input a query, display an error message and return control to the main form
         if (query.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Please input query string!", "Message", JOptionPane.WARNING_MESSAGE);
@@ -162,7 +162,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
         /* We just UPDATE, donot show out the result
         ResultTextArea.selectAll();
         ResultTextArea.replaceSelection("");
-        */
+         */
         try {
             //connect Database
             ConnectionDB connDB = new ConnectionDB();
@@ -170,38 +170,16 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
 
             Statement stmt = conn.createStatement();
             String SQL = query.getText();
-            ResultSet rs = stmt.executeQuery(SQL);
+            int rowsAffected = stmt.executeUpdate(SQL); // Use executeUpdate() instead of executeQuery()
 
-            // Iterate through the data in the result set and display it.
-            // Process query results
-            StringBuilder results = new StringBuilder();
-
-            //Fetch the column information for the table
-            ResultSetMetaData metaData = rs.getMetaData();
-            int numberOfColumns = metaData.getColumnCount();
-            for (int i = 1; i <= numberOfColumns; i++) {
-                results.append(metaData.getColumnName(i)).append("\t");
-            }
-            results.append("\n");
-            //  Metadata
-            while (rs.next()) {
-                //Obtain the results of the query
-                for (int i = 1; i <= numberOfColumns; i++) {
-                    results.append(rs.getObject(i)).append("\t");
-                }
-                results.append("\n");
-            }
-            
-            /*
-            //Display the results onto Text Area (ResultTextArea)
-            ResultTextArea.setText(results.toString());
-            */
-        } // Handle any errors that may have occurred.
-        catch (SQLException e) {
+            // Display the number of rows affected
+            //ResultTextArea.setText("Rows affected: " + rowsAffected);
+        } catch (SQLException e) {
             ResultTextArea.setText(e.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UpdateOwnerDetails.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
@@ -221,7 +199,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
 
     private void RunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunButtonActionPerformed
         //View Result based on query sentence:
-        
+
         // Check if the user hasn’t input a query, display an error message and return control to the main form
         if (ViewResult.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Please input query string!", "Message", JOptionPane.WARNING_MESSAGE);
@@ -230,7 +208,7 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
 
         ResultTextArea.selectAll();
         ResultTextArea.replaceSelection("");
-        
+
         try {
             //connect Database
             ConnectionDB connDB = new ConnectionDB();
@@ -259,21 +237,21 @@ public class UpdateOwnerDetails extends javax.swing.JFrame {
                 }
                 results.append("\n");
             }
-            
+
             //Display the results onto Text Area (ResultTextArea)
             ResultTextArea.setText(results.toString());
-            
+
         } // Handle any errors that may have occurred.
         catch (SQLException e) {
             ResultTextArea.setText(e.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UpdateOwnerDetails.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+
     }//GEN-LAST:event_RunButtonActionPerformed
 
     private void ViewResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewResultActionPerformed
-        
+
     }//GEN-LAST:event_ViewResultActionPerformed
 
     /**
